@@ -24,11 +24,11 @@
 
 ```
 for i = 1 to m do
- b_i = 0
+ b[i] = 0
 for j = 1 to n do
-  k = argmin(bi) # i = 1,...,m
-  x_j = k
-  b_k = b_k + v_j
+  k = argmin(b[i]) # i = 1,...,m
+  x[j] = k
+  b[k] = b[k] + v[j]
 ```
 
 ---
