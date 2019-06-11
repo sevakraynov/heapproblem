@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using HeapProblem.Classes;
 
 namespace HeapProblem
 {
@@ -9,34 +10,31 @@ namespace HeapProblem
     public static class Extension
     {
         /// <summary>
-        /// Метод поиска индекса минимального элемента
+        /// Поиск кучи с минимальным весом
         /// </summary>
-        /// <param name="source">Перечислитель с типом Heap</param>
-        /// <returns>Индекс минимального элемента, иначе -1</returns>
-        public static int IndexOfMin(this IEnumerable<Heap> source)
+        /// <param name="heapList">Перечислитель с типом Heap</param>
+        /// <returns>Куча с минимальным весом</returns>
+        public static Heap MinHeap(this IEnumerable<Heap> heapList)
         {
-            if (source == null)
+            if (heapList == null)
                 throw new ArgumentNullException("source");
 
             int minValue = int.MaxValue;
-            int minIndex = -1;
-            int index = -1;
+            Heap minHeap = null;
 
-            foreach (var item in source)
+            foreach (var heap in heapList)
             {
-                index++;
-
-                if (item.Weight <= minValue)
+                if (heap.Weight <= minValue)
                 {
-                    minValue = item.Weight;
-                    minIndex = index;
+                    minValue = heap.Weight;
+                    minHeap = heap;
                 }
             }
 
-            if (index == -1)
+            if (minHeap == null)
                 throw new InvalidOperationException("Sequence was empty");
 
-            return minIndex;
+            return minHeap;
         }
         
         /// <summary>
@@ -54,7 +52,6 @@ namespace HeapProblem
 
             foreach (var item in source)
             {
-
                 if (item.Weight > maxValue)
                 {
                     maxValue = item.Weight;
