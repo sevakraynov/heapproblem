@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HeapProblem.Classes;
 
 namespace HeapProblem
 {
@@ -56,12 +57,12 @@ namespace HeapProblem
             var stoneList = new List<Stone>();
             var heapList = new List<Heap>();
             var random = new Random();
-            int minIndex;
+            Heap minIndex = null;
             
             // Инициализация куч с нулевым весом
             for (int i = 0; i < CountOfHeap; i++)
             {
-                heapList.Add(new Heap { Number = i + 1, Weight = 0 });
+                heapList.Add(new Heap{ Number = i + 1 });
             }
 
             // Генерация радомного камня и добавление в общую кучу
@@ -69,7 +70,7 @@ namespace HeapProblem
             {
                 var stone = new Stone { Weight = random.Next(1, 11) };
                 stoneList.Add(stone);
-                Console.WriteLine($"Камень: {{№: {i + 1}, W: {stoneList[i].Weight}}}");
+                Console.WriteLine($"Камень: {{№: {i + 1}, W: {stone.Weight}}}");
             }
 
             Console.WriteLine();
@@ -79,20 +80,17 @@ namespace HeapProblem
             // Для каждого камня из общего списка камней
             foreach (var item in stoneList)
             {
-                // Находим индекс кучи с минимальным весом
-                minIndex = heapList.IndexOfMin();
+                // Находим кучу с минимальным весом
+                minIndex = heapList.MinHeap();
 
-                // Указываем камню номер кучи, в которую его добавляем
-                item.HeapNumber = minIndex;
-
-                // Увеличиваем размер найденной кучи на величину веса камня
-                heapList[minIndex].Weight += item.Weight;
+                // Кладем камень в кучу с минимальным весом
+                minIndex.StoneList.Add(item);
             }
 
             // Выводим информацию о полученных кучах
-            foreach (var item in heapList)
+            foreach (var heap in heapList)
             {
-                Console.WriteLine($"Куча {{No: {item.Number}, W: {item.Weight}}}");
+                Console.WriteLine($"Куча {{No: {heap.Number}, W: {heap.Weight}}}");
             }
 
             // Максимальная куча среди куч с минимальным весом

@@ -1,4 +1,4 @@
-namespace HeapProblem
+namespace HeapProblem.Classes
 {
     /// <summary>
     /// Статичный класс Настроек
